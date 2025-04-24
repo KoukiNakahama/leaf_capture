@@ -1,0 +1,1 @@
+python3 main.py --hand_annotation --overwrite

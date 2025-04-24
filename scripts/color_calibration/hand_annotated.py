@@ -36,7 +36,7 @@ def _get_colorchecker_reference():
     return ref_colors_Lab
 
 
-if __name__ == '__main__':
+def hand_annotated(image_path, ):
     parser = argparse.ArgumentParser(description='')
     parser.add_argument("--image_path", type=str, required=True)
     parser.add_argument("--event", type=int)

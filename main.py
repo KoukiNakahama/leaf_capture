@@ -12,23 +12,25 @@ import numpy as np
 from scripts.capture import capture
 from scripts.port import select_port
 from scripts.process_img import process_img
+from scripts.calc_color_matrix import image_point_annotator, hand_annotated
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--output', default='test', help='保存先のフォルダ')
-parser.add_argument('--overwrite', action='store_true')
 parser.add_argument('--exposure', default=0.35)
-parser.add_argument('--color_matrix', default='color_matrix.npz')
-parser.add_argument('--scale', default=1.0, help='画像のリサイズの比率')
+parser.add_argument('--width', default=512)
+parser.add_argument('--height', default=512)
+parser.add_argument('--hand_annotation', action='store_true')
+parser.add_argument('--overwrite', action='store_true')
 args = parser.parse_args()
 
 def main():
     output = f'./imgs/{args.output}'
-    overwrite = args.overwrite
     exposure = args.exposure
-    if overwrite == False:
+    width = args.width
+    height = args.height
+    hand_annotation = args.hand_annotation
+    if args.overwrite == False:
         assert not os.path.exists(output), "This folder already exists!"
-    color_matrix = np.load(args.color_matrix)['color_matrix_lstsq']
-    scale = args.scale
         
     # マイコンと接続
     ser1 = select_port(9600) # 上側のライト
@@ -44,8 +46,13 @@ def main():
     ser1.close()
     ser2.close()
     
+    # 色補正行列を出力(任意)
+    if hand_annotation:
+        image_point_annotator()
+        hand_annotated()
+    
     # 画像の前処理(拡張子変換，色補正，リサイズ)
-    process_img(output, color_matrix, scale)
+    process_img(output, width, height)
     
     print('Finish.')
 

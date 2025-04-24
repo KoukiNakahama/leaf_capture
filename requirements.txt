@@ -1,0 +1,8 @@
+numpy
+opencv-python
+matplotlib
+PySpin
+pyserial
+colour
+colour_checker_detection
+git+https://luna.ist.osaka-u.ac.jp/hiroaki.santo/color-calibration.git

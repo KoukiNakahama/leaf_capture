@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 
 loop_true = True
 
-
 def labeling_2d_point_with_matplotlib(img):
     m, n, _ = img.shape
     img = img.copy()
@@ -52,7 +51,7 @@ def labeling_2d_point_with_matplotlib(img):
     return np.array(clicked_point)
 
 
-if __name__ == '__main__':
+def image_point_annotator():
     parser = argparse.ArgumentParser(description='')
     parser.add_argument("--dir_path", type=str)
     parser.add_argument("--filename_format", type=str, default="*.jpg")
